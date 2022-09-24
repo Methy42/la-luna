@@ -1,0 +1,57 @@
+@import "./base.css";
+
+.page-container {
+  display: flex;
+}
+
+.la-button {
+  color: #979797;
+  font-size: 14px;
+  padding: 8px 15px;
+  border: 1px solid #979797;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .5s;
+}
+
+.la-button:hover {
+  color: #ffffff;
+  background-color: #979797;
+}
+
+.la-icon-button {
+  color: #979797;
+  width: 28px;
+  height: 28px;
+  /* border: 1px solid #979797; */
+  border-radius: 10px;
+  line-height: 25px;
+  text-align: center;
+  transition: all .5s;
+  cursor: pointer;
+}
+
+.la-icon-button:hover {
+  color: #FFFFFF;
+  background-color: #979797;
+}
+
+.width-15px {
+  width: 15px;
+}
+
+.height-15px {
+  height: 15px;
+}
+
+.la-title {
+  color: #979797;
+  font-size: 24px;
+  margin-bottom: 75px;
+}
+
+.la-split-line {
+  margin: 20px 0px;
+  height: 1px;
+  background-color: #979797;
+}
