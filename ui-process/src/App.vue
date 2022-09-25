@@ -8,11 +8,21 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { DROP_FILES } from "./services/actionType";
 import project from './services/modules/Project';
 
 const isDrop = ref(false);
 const projectLoading = ref(false);
+
+(window as any).require("electron").ipcRenderer.on("add-image", (event: any, { imageBase64 }: any) => {
+  console.log("add image", imageBase64);
+  project.musicScore.musicScoreBase64 = imageBase64;
+
+  useRouter().push({
+    path: "/project"
+  });
+});
 
 function dragenterFile (payload: DragEvent) {
   payload.preventDefault();

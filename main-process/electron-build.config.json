@@ -1,0 +1,13 @@
+{
+  "appId": "jingli.client.app",
+  "directories": {
+    "output": "builder"
+  },
+  "win": {
+    "target": [
+      "nsis",
+      "zip"
+    ],
+    "icon": "static/images/logo.png"
+  }
+}
