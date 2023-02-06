@@ -48,36 +48,12 @@ class Project implements IProject {
     };
   }
 
-  set(project: IProject) {
-    this.id = project.id;
-    this.name = project.name;
-    this.createTime = project.createTime;
-    this.updateTime = project.updateTime;
-    this.filePath = project.filePath;
-    this.musicScore = project.musicScore;
-    this.music = project.music;
-    this.author = project.author;
-  }
-
-  save() {
-    window.require("electron").ipcRenderer.send(SAVE_PROJECT, this.get());
-  }
-
-  [LOAD_PROJECT](project: IProject) {
-    this.set(project);
-    this.saveTime = project.updateTime;
-    
-    history[ADD_HISTORY](LOAD_PROJECT, this.get());
-  };
-
   [DROP_FILES](files: FileList) {
-    window.require("electron").ipcRenderer.send("drop-files", {
-      files: Array.from(files).map(file => ({
-        name: file.name,
-        type: file.type,
-        path: (file as any).path
-      }))
-    });
+    window.require("electron").ipcRenderer.send("drop-files", Array.from(files).map(file => ({
+      name: file.name,
+      type: file.type,
+      path: (file as any).path
+    })));
   }
 }
 

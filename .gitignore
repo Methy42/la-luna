@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
 dist
+electron
+electron-packager
 
 # Log files
 npm-debug.log*

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>有新版本可以更新</h3>
+    <table>
+        <tbody>
+            <tr>
+                <td>版本号</td>
+                <td id="version-number-container">0.0.0</td>
+            </tr>
+            <tr>
+                <td>版本说明</td>
+                <td id="version-description-container">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <button type="button" onclick="window.close()">取消</button>
+        <button type="button">更新</button>
+    </div>
+    <script>
+        window.require("electron").ipcRenderer.on("update-version-ui-init", (option) => {
+            document.getElementById("version-number-container").innerText = option.versionNumber;
+            document.getElementById("version-description-container").innerHTML = option.versionDescription;
+        });
+    </script>
+</body>
+</html>

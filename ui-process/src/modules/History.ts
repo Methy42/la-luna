@@ -25,11 +25,11 @@ class History implements IHistory {
     this.vernier = this.historyStack.length - 1;
   }
 
-  [BACK_HISTORY](newVernier: number) {
-    if (this.historyStack[newVernier]) {
-      project.set(JSON.parse(this.historyStack[newVernier].projectState));
-    }
-  }
+  // [BACK_HISTORY](newVernier: number) {
+  //   if (this.historyStack[newVernier]) {
+  //     project.set(JSON.parse(this.historyStack[newVernier].projectState));
+  //   }
+  // }
 }
 
 export default new History();

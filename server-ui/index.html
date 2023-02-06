@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>服务器配置</h3>
+    <div>
+        <label for="">服务器地址</label>
+        <input type="text" id="server-address" />
+    </div>
+    <div>
+        <button type="button" onclick="window.close()">取消</button>
+        <button type="button" onclick="setServer()">确定</button>
+    </div>
+
+    <script>
+        function setServer() {
+            const serverAddress = document.getElementById("server-address").value;
+
+            window.require("electron").ipcRenderer.send("set-server", {
+                address: serverAddress
+            });
+
+            window.close();
+        }
+
+        window.require("electron").ipcRenderer.on("render-server", (event, server) => {
+            document.getElementById("server-address").value = server.address;
+        });
+    </script>
+</body>
+</html>

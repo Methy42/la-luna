@@ -5,22 +5,39 @@
       <div class="drop-label">拖拽文件到此上传</div>
     </div>
   </div>
+
+  <template v-for="(cord, index) in cordList" :key="index" :title="cord.title">
+    <music-score v-if="cord.contentType === 'image'"
+      :music-score-base64="cord.contentResourcesBase64"
+      :name="cord.name"
+    />
+  </template>
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { DROP_FILES } from "./services/actionType";
-import project from './services/modules/Project';
+import project from './modules/Project';
+import runtime from "./runtime";
 
+const $router = useRouter();
 const isDrop = ref(false);
 const projectLoading = ref(false);
+const cordList = ref<Array<{
+  name: string;
+  contentType: "image" | "audio";
+  contentResourcesBase64: string;
+}>>([]);
 
-(window as any).require("electron").ipcRenderer.on("add-image", (event: any, { imageBase64 }: any) => {
-  console.log("add image", imageBase64);
-  project.musicScore.musicScoreBase64 = imageBase64;
-
-  useRouter().push({
-    path: "/project"
+runtime.addEventListener("change:music-score", (event) => {
+  cordList.value.push({
+    // width: document.body.offsetWidth / 2,
+    // height: image.height * ((document.body.offsetWidth / 2) / image.width),
+    // top: document.body.offsetHeight / 6,
+    // left: document.body.offsetWidth / 2 - document.body.offsetWidth / 4,
+    name: (event as CustomEvent).detail.name,
+    contentType: "image",
+    contentResourcesBase64: (event as CustomEvent).detail.base64
   });
 });
 
@@ -64,5 +81,9 @@ function dropFile (payload: DragEvent) {
 .drop-label {
   color: #FFFFFF;
   font-size: 28px;
+}
+
+* {
+  user-select:none;
 }
 </style>

@@ -66,7 +66,7 @@ export default class MainWindowServices {
       return new Promise<string>((resolve, reject) => {
         fs.readFile(file.path, (error, bitmap) => {
           if (error) return reject(error);
-          const imageBase64 = Buffer.from(bitmap).toString('base64');
+          const imageBase64 = 'data:' + file.type + ';base64,' + Buffer.from(bitmap).toString('base64');
           return resolve(imageBase64);
         });
       });
