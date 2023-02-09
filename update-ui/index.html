@@ -1,35 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>版本更新</title>
+    <style>
+        html,
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .step-container {
+            color: #979797;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(to bottom right, #181818, #363636);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .step-container .title {
+            font-size: 20px;
+            font-weight: bolder;
+            padding: 15px;
+            flex-shrink: 0;
+        }
+
+        .step-container .body {
+            padding: 15px;
+            flex-grow: 1;
+            overflow: auto;
+        }
+
+        .step-container .footer {
+            padding: 15px;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: right;
+        }
+
+        .step-container .footer .la-button {
+            margin-left: 5px;
+        }
+
+        .version-download-progress-container {
+            width: 100%;
+            height: 30px;
+            border: 2px solid #979797;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .version-download-progress {
+            width: 0px;
+            height: 100%;
+            background-color: #979797;
+        }
+
+        .icon-layout-container {
+            display: flex;
+            align-items: center;
+            overflow: auto;
+        }
+
+        .icon-layout-container .icon {
+            font-size: 32px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .icon-layout-container .content {
+            word-break: break-all;
+            overflow: auto;
+        }
+
+        .la-button {
+            color: #979797;
+            font-size: 14px;
+            padding: 8px 15px;
+            border: 1px solid #979797;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all .5s;
+        }
+
+        .la-button:hover {
+            color: #ffffff;
+            background-color: #979797;
+        }
+    </style>
 </head>
+
 <body>
-    <h3>有新版本可以更新</h3>
-    <table>
-        <tbody>
-            <tr>
-                <td>版本号</td>
-                <td id="version-number-container">0.0.0</td>
-            </tr>
-            <tr>
-                <td>版本说明</td>
-                <td id="version-description-container">
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div>
-        <button type="button" onclick="window.close()">取消</button>
-        <button type="button">更新</button>
+    <div id="message-step" class="step-container">
+        <div class="title">有新版本可以更新</div>
+        <div class="body">
+            <div class="icon-layout-container">
+                <svg t="1675818379038" class="icon"
+                    style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
+                    viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2701"
+                    data-spm-anchor-id="a313x.7781069.0.i0">
+                    <path
+                        d="M960 458.666667c0 23.466667-19.2 42.666667-42.666667 42.666667l-128 0 0 213.333333c0 23.466667-19.2 42.666667-42.666667 42.666667L277.333333 757.333333c-23.466667 0-42.666667-19.2-42.666667-42.666667l0-213.333333L106.666667 501.333333c-23.466667 0-42.666667-19.2-42.666667-42.666667 0-12.8 4.266667-23.466667 12.8-29.866667l0 0 405.333333-405.333333 0 0c8.533333-8.533333 19.2-12.8 29.866667-12.8s23.466667 4.266667 29.866667 12.8l0 0 405.333333 405.333333 0 0C955.733333 435.2 960 445.866667 960 458.666667zM512 113.066667 209.066667 416 277.333333 416c23.466667 0 42.666667 19.2 42.666667 42.666667l0 213.333333 384 0 0-213.333333c0-23.466667 19.2-42.666667 42.666667-42.666667l68.266667 0L512 113.066667zM277.333333 800l469.333333 0c23.466667 0 42.666667 19.2 42.666667 42.666667 0 23.466667-19.2 42.666667-42.666667 42.666667L277.333333 885.333333c-23.466667 0-42.666667-19.2-42.666667-42.666667C234.666667 819.2 253.866667 800 277.333333 800zM277.333333 928l469.333333 0c23.466667 0 42.666667 19.2 42.666667 42.666667s-19.2 42.666667-42.666667 42.666667L277.333333 1013.333333c-23.466667 0-42.666667-19.2-42.666667-42.666667S253.866667 928 277.333333 928z"
+                        p-id="2702" fill="#979797"></path>
+                </svg>
+                <div class="content">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>版本号</td>
+                                <td id="version-number-container">0.0.0</td>
+                            </tr>
+                            <tr>
+                                <td>大小</td>
+                                <td id="version-size-container">0.0.0</td>
+                            </tr>
+                            <tr>
+                                <td>版本说明</td>
+                                <td id="version-description-container">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div onclick="window.close()" class="la-button">取消</div>
+            <div onclick="downloadUpdate()" class="la-button">下载更新</div>
+        </div>
     </div>
+
+    <div id="download-step" class="step-container">
+        <div class="title">正在下载更新</div>
+        <div class="body">
+            <div class="version-download-progress-container">
+                <div class="version-download-progress"></div>
+            </div>
+            <span><b>下载速度：</b><span id="version-download-speed"></span></span>
+        </div>
+    </div>
+    <div id="install-step" class="step-container">
+        <div class="title">安装更新</div>
+        <div class="body">
+            <div class="icon-layout-container">
+                <svg t="1675840345799" class="icon"
+                    style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
+                    viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4650">
+                    <path
+                        d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667z m0 810.666666c-204.8 0-373.333333-168.533333-373.333333-373.333333S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z"
+                        fill="#979797" p-id="4651"></path>
+                    <path
+                        d="M701.866667 381.866667L448 637.866667 322.133333 512c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l149.333334 149.333333c6.4 6.4 14.933333 8.533333 23.466666 8.533334s17.066667-2.133333 23.466667-8.533334l277.333333-277.333333c12.8-12.8 12.8-32 0-44.8-14.933333-12.8-36.266667-12.8-49.066666-2.133333z"
+                        fill="#979797" p-id="4652"></path>
+                </svg>
+                <div class="content">更新已下载完成，是否进行安装</div>
+            </div>
+        </div>
+        <div class="footer">
+            <div onclick="window.close()" class="la-button">取消</div>
+            <div onclick="installUpdate()" class="la-button">开始安装</div>
+        </div>
+    </div>
+    <div id="installing-step" class="step-container">
+        <div class="title">正在安装，请稍后</div>
+        <div class="body">
+            <div class="icon-layout-container">
+                <svg t="1675840622465" class="icon"
+                    style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
+                    viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8485"
+                    data-spm-anchor-id="a313x.7781069.0.i7">
+                    <path
+                        d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667z m0 810.666666c-204.8 0-373.333333-168.533333-373.333333-373.333333S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z"
+                        fill="#979797" p-id="8486"></path>
+                    <path
+                        d="M695.466667 567.466667l-151.466667-70.4V277.333333c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v238.933334c0 12.8 6.4 23.466667 19.2 29.866666l170.666667 81.066667c4.266667 2.133333 8.533333 2.133333 12.8 2.133333 12.8 0 23.466667-6.4 29.866666-19.2 6.4-14.933333 0-34.133333-17.066666-42.666666z"
+                        fill="#979797" p-id="8487"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div id="failed-step" class="step-container">
+        <div class="title">更新失败</div>
+        <div class="body">
+            <div class="icon-layout-container">
+                <svg t="1675839733529" class="icon"
+                    style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
+                    viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3648"
+                    data-spm-anchor-id="a313x.7781069.0.i2">
+                    <path
+                        d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667z m0 810.666666c-204.8 0-373.333333-168.533333-373.333333-373.333333S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z"
+                        fill="#979797" p-id="3649"></path>
+                    <path
+                        d="M657.066667 360.533333c-12.8-12.8-32-12.8-44.8 0l-102.4 102.4-102.4-102.4c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l102.4 102.4-102.4 102.4c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.933333 8.533333 23.466666 8.533334s17.066667-2.133333 23.466667-8.533334l102.4-102.4 102.4 102.4c6.4 6.4 14.933333 8.533333 23.466667 8.533334s17.066667-2.133333 23.466666-8.533334c12.8-12.8 12.8-32 0-44.8l-106.666666-100.266666 102.4-102.4c12.8-12.8 12.8-34.133333 0-46.933334z"
+                        fill="#979797" p-id="3650"></path>
+                </svg>
+                <div id="version-failed-message" class="content"></div>
+            </div>
+        </div>
+        <div class="footer">
+            <div onclick="window.close()" class="la-button">关闭</div>
+        </div>
+    </div>
+    <div id="success-step" class="step-container">
+        <div class="title">更新已完成</div>
+        <div class="body">
+            <div class="icon-layout-container">
+                <svg t="1675840345799" class="icon"
+                    style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
+                    viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4650">
+                    <path
+                        d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667z m0 810.666666c-204.8 0-373.333333-168.533333-373.333333-373.333333S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z"
+                        fill="#979797" p-id="4651"></path>
+                    <path
+                        d="M701.866667 381.866667L448 637.866667 322.133333 512c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l149.333334 149.333333c6.4 6.4 14.933333 8.533333 23.466666 8.533334s17.066667-2.133333 23.466667-8.533334l277.333333-277.333333c12.8-12.8 12.8-32 0-44.8-14.933333-12.8-36.266667-12.8-49.066666-2.133333z"
+                        fill="#979797" p-id="4652"></path>
+                </svg>
+                <div class="content">更新已完成，重启客户端即可应用更新</div>
+            </div>
+        </div>
+        <div class="footer">
+            <div onclick="window.close()" class="la-button">关闭</div>
+            <div onclick="restartApp()" class="la-button">重启以应用更新</div>
+        </div>
+    </div>
+
     <script>
-        window.require("electron").ipcRenderer.on("update-version-ui-init", (option) => {
-            document.getElementById("version-number-container").innerText = option.versionNumber;
-            document.getElementById("version-description-container").innerHTML = option.versionDescription;
+        const store = {
+            version: undefined
+        };
+
+        window.require("electron").ipcRenderer.on("update-version-ui-init", (event, option) => {
+            store.version = option;
+            document.getElementById("version-number-container").innerText = store.version.number;
+            document.getElementById("version-size-container").innerText = formatSpeed(store.version.size).replace(/\/s/g, "");
+            document.getElementById("version-description-container").innerHTML = store.version.description;
         });
+
+        window.require("electron").ipcRenderer.on("update-download-progress", (event, option) => {
+            document.getElementById("version-download-progress").style.width = option.progress * 100 + "%";
+            document.getElementById("version-download-speed").innerText = formatSpeed(option.speed);
+        });
+
+        window.require("electron").ipcRenderer.on("update-download-success", (event) => {
+            showStep("install-step");
+        });
+
+        window.require("electron").ipcRenderer.on("update-download-failed", (event, option) => {
+            showStep("failed-step");
+
+            document.getElementById("version-failed-message").innerHTML = option.message;
+        });
+
+        window.require("electron").ipcRenderer.on("update-install-success", () => {
+            showStep("success-step");
+        });
+
+        window.require("electron").ipcRenderer.on("update-install-failed", (event, option) => {
+            showStep("failed-step");
+
+            document.getElementById("version-failed-message").innerHTML = option.message;
+        });
+
+        function showStep(id) {
+            console.log("show", id);
+            document.querySelectorAll(".step-container").forEach(element => element.style.display = "none");
+            document.getElementById(id).style.display = "flex";
+            console.log("show end");
+        }
+
+        function downloadUpdate() {
+            console.log("click download update", store.version);
+            if (!store.version) return;
+
+            showStep("download-step");
+
+            window.require("electron").ipcRenderer.send("update-download", store.version);
+        }
+
+        function restartApp() {
+            window.require("electron").ipcRenderer.send("update-restart-app");
+        }
+
+        function installUpdate() {
+            if (!store.version) return;
+
+            showStep("installing-step");
+
+            window.require("electron").ipcRenderer.send("update-install", store.version);
+        }
+
+        function formatSpeed(speed) {
+            const unitEnum = {
+                0: "B/s",
+                1: "KB/s",
+                2: "MB/s",
+                3: "GB/s",
+                4: "TB/s"
+            }
+
+            let level = 0;
+            let result = "0B/s";
+
+            while (speed / Math.pow(1024, level) >= 1) {
+                if (unitEnum[level]) {
+                    result = parseInt(speed / Math.pow(1024, level)) + unitEnum[level];
+                }
+
+                level += 1;
+            }
+
+            return result;
+        }
+
+        window.onload = function () {
+            showStep("message-step");
+        }
     </script>
 </body>
+
 </html>

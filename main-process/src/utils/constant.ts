@@ -9,6 +9,7 @@ class Constant {
       this.mainWindowWebPath = "http://localhost:10234";
       this.updateWindowUIPath = path.join(__dirname, "../../update-ui/index.html");
       this.serverWindowUIPath = path.join(__dirname, "../../server-ui/index.html");
+      this.windowsGetSerialNumberToolPath = path.join(__dirname, "../../resources/get_system_hdserial.exe");
     }
   }
 
@@ -18,6 +19,7 @@ class Constant {
   mainWindowWebPath = "";
   updateWindowUIPath = "";
   serverWindowUIPath = "";
+  windowsGetSerialNumberToolPath = "";
 
   currentVersionDescriptionFilePath = path.join(app.getPath("appData"), app.getName(), "current-version-description.txt");
 

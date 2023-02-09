@@ -5,6 +5,7 @@ import constant from "../utils/constant";
 export interface IVersion {
     number: string;
     downloadPath: string;
+    size: number;
     description: string;
 }
 
