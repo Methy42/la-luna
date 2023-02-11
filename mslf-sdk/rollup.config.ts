@@ -5,7 +5,7 @@ import commonjs from 'rollup-plugin-commonjs';
 
 console.log("start", process.env.NODE_ENV);
 
-export default defineConfig({
+const rollupOptions = defineConfig({
     input: "src/main.ts",
     plugins: [
         typescript({ tsconfig: './tsconfig.json' }),
@@ -49,6 +49,18 @@ export default defineConfig({
         file: "lib/bundle.es.js",
         format: "es",
         sourcemap: true
+    }, {
+        file: "lib/bundle.iife.js",
+        format: "iife",
+        sourcemap: true
+    }, {
+        file: "lib/bundle.umd.js",
+        format: "umd",
+        sourcemap: true,
+        name: "MSLFCanvas",
+        extend: true,
+        esModule: true
     }]
 });
 
+export default rollupOptions;
