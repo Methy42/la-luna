@@ -1,7 +1,12 @@
 import LineCellPlugin from "./LineCell.plugin";
 import ParentFullSizePlugin from "./ParentFullSize.plugin";
 
+export interface IPluginConstructor {
+    (canvas: HTMLCanvasElement, runtime: IRuntime): void
+}
+
 export interface IPlugin {
+    new?: ((canvas: HTMLCanvasElement, runtime: IRuntime) => void) | IPluginConstructor;
     onCanvasLoad?: (ev: Event) => void;
     onCanvasMouseMove?: (ev: MouseEvent) => any;
     onCanvasClick?: (ev: MouseEvent) => any;
@@ -9,8 +14,23 @@ export interface IPlugin {
     [key: string]: any;
 }
 
+export interface IRuntime {
+    displayMultiplier?: number;
+    lineCell?: {
+        activeElements?: { [ name: string ]: HTMLElement };
+    };
+}
+
 export default class MSLFCanvas {
-    constructor(parentDOM: HTMLElement) {
+    constructor(parentDOM: HTMLElement, runtime?: IRuntime) {
+        if (runtime) {
+            console.log(runtime);
+            
+            Object.assign(this.runtime, runtime);
+        }
+
+        this.pluginList.push(new LineCellPlugin(this.canvas, this.runtime), new ParentFullSizePlugin(this.canvas, this.runtime));
+
         this.pluginList.forEach(plugin => {
             if (plugin.onCanvasLoad) this.canvas.addEventListener("load", plugin.onCanvasLoad.bind(plugin));
             if (plugin.onCanvasMouseMove) this.canvas.addEventListener("mousemove", plugin.onCanvasMouseMove.bind(plugin));
@@ -24,9 +44,11 @@ export default class MSLFCanvas {
 
     canvas: HTMLCanvasElement = document.createElement("canvas");
 
-    displayMultiplier: number = new Proxy<number>(2, {});
+    runtime: IRuntime = new Proxy<IRuntime>({
+        displayMultiplier: 2
+    }, {});
 
-    pluginList: IPlugin[] = [ new LineCellPlugin({ displayMultiplier: this.displayMultiplier }), new ParentFullSizePlugin(this.canvas, { displayMultiplier: this.displayMultiplier }) ];
+    pluginList: IPlugin[] = [];
 
     renderer() {
         const ctx = this.canvas.getContext("2d");

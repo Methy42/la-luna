@@ -1,4 +1,4 @@
-import { IPlugin } from "./main";
+import { IPlugin, IRuntime } from "./main";
 
 interface IParentFullSizePlugin {
     displayMultiplier?: number;
@@ -6,13 +6,11 @@ interface IParentFullSizePlugin {
 }
 
 export default class ParentFullSizePlugin implements IPlugin, IParentFullSizePlugin {
-    constructor(canvas: HTMLCanvasElement, option?: {
-        displayMultiplier?: number;
-    }) {
+    constructor(canvas: HTMLCanvasElement, runtime: IRuntime) {
         this.canvas = canvas;
         this.canvas.style.display = "block";
 
-        if (option && option.displayMultiplier) this.displayMultiplier = option.displayMultiplier;
+        this.displayMultiplier = runtime.displayMultiplier;
 
         setTimeout(() => {
             this.initCanvasSize();

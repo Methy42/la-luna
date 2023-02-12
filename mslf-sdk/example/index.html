@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        html, body {
+        html,
+        body {
             padding: 0px;
             margin: 0px;
         }
@@ -51,18 +52,31 @@
 
 <body>
     <div class="container">
-        <div class="header"></div>
         <div class="main">
-            <div class="menu-container"></div>
+            <div class="menu-container">
+                <div class="active-control-container">
+                    <div id="row-active" class="active-control-item">画横线</div>
+                    <div id="column-active" class="active-control-item">画竖线</div>
+                    <div id="tag-active" class="active-control-item">标记格子</div>
+                </div>
+            </div>
             <div class="canvas-container">
-                <div id="melf-canvas"></div>
+                <div id="melf-canvas">
+                </div>
             </div>
         </div>
-        <div class="footer"></div>
     </div>
     <script src="../lib/bundle.umd.js"></script>
     <script>
-        new MSLFCanvas(document.getElementById("melf-canvas"));
+        const mslfCanvas = new MSLFCanvas(document.getElementById("melf-canvas"), {
+            lineCell: {
+                activeElements: {
+                    row: document.getElementById("row-active"),
+                    column: document.getElementById("column-active"),
+                    tag: document.getElementById("tag-active")
+                }
+            }
+        });
     </script>
 </body>
 
